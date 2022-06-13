@@ -84,6 +84,10 @@ GameManager.prototype.actuate = function () {
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
     this.storageManager.clearGameState();
+    if(localStorage.getItem("username") == null) {
+      console.log("Updating username");
+      document.getElementById("userNameInput").style.display = "block";
+    }
   } else {
     this.storageManager.setGameState(this.serialize());
   }
