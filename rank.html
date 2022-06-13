@@ -24,7 +24,7 @@
 
 <body>
     <div class="container">
-        <table>
+        <table class="styled-table">
             <thead>
                 <tr>
                     <th>#</th>
@@ -32,12 +32,9 @@
                     <th>Score</th>
                 </tr>
             </thead>
-<!-- 
-            <tr>
-                <td>1</td>
-                <td>Wong</td>
-                <td>100</td>
-            </tr> -->
+            <tbody>
+
+            </tbody>
         </table>
         <div class="above-game">
             <a class="restart-button" href="/index.html">返回游戏</a>
@@ -59,15 +56,19 @@
             data => {
                 console.log(data);
                 var rankData = data.results;
-                var rankTable = document.getElementsByTagName("table")[0];
+                //Add data to table tbody
                 for (var i = 0; i < rankData.length; i++) {
-                    var rankRow = rankTable.insertRow(i + 1);
-                    var rankCell1 = rankRow.insertCell(0);
-                    var rankCell2 = rankRow.insertCell(1);
-                    var rankCell3 = rankRow.insertCell(2);
-                    rankCell1.innerHTML = i + 1;
-                    rankCell2.innerHTML = rankData[i].username;
-                    rankCell3.innerHTML = rankData[i].score;
+                    var tr = document.createElement("tr");
+                    var td1 = document.createElement("td");
+                    var td2 = document.createElement("td");
+                    var td3 = document.createElement("td");
+                    td1.innerHTML = i + 1;
+                    td2.innerHTML = rankData[i].username;
+                    td3.innerHTML = rankData[i].score;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    document.getElementsByTagName("tbody")[0].appendChild(tr);
                 }
             }
         )
@@ -78,3 +79,42 @@
     }
 
 </script>
+
+<style>
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 80%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
+</style>
